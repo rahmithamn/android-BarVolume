@@ -26,10 +26,20 @@ class MainActivity : AppCompatActivity(), View.OnClickListener {
         btnCalculate.setOnClickListener(this)
 
 
-
+        if (savedInstanceState != null){
+            val result = savedInstanceState.getString(STATE_RESULT) as String
+            tvResult.text = result
+        }
 
     }
+    companion object {
+        private const val STATE_RESULT = "state_result"
+    }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putString(STATE_RESULT, tvResult.text.toString())
+    }
     override fun onClick(v: View?) {
         if (v!!.id == R.id.btn_calculate) {
             val inputLength = edtLength.text.toString().trim()
